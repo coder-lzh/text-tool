@@ -1,0 +1,52 @@
+package com.example.demo.func;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 一个树结构菜单，过滤出包含三级菜单的数据，也就是说，仅仅是获取这一条数据肯定包含了三级，但是并没有这条数据的上级
+ */
+public class MenuFilter {
+    public static void main(String[] args) {
+        // 创建菜单树的示例数据
+        MenuNode root = new MenuNode(1, 0, "Root");
+        MenuNode level1A = new MenuNode(2, 1, "Level 1A");
+        MenuNode level1B = new MenuNode(3, 1, "Level 1B");
+        MenuNode level2A1 = new MenuNode(4, 2, "Level 2A1");
+        MenuNode level2A2 = new MenuNode(5, 2, "Level 2A2");
+        MenuNode level2B1 = new MenuNode(6, 3, "Level 2B1");
+        MenuNode level3A1 = new MenuNode(7, 4, "Level 3A1");
+        MenuNode level3A2 = new MenuNode(8, 4, "Level 3A2");
+        level2A1.addChild(level3A1);
+        level2A1.addChild(level3A2);
+        level1A.addChild(level2A1);
+        level1A.addChild(level2A2);
+        level1B.addChild(level2B1);
+        root.addChild(level1A);
+        root.addChild(level1B);
+
+        // 过滤出只包含三级菜单的数据
+        List<MenuNode> result = filterThreeLevelMenus(root);
+        for (MenuNode node : result) {
+            System.out.println(node);
+        }
+    }
+
+    // 过滤出只包含三级菜单的节点
+    public static List<MenuNode> filterThreeLevelMenus(MenuNode root) {
+        List<MenuNode> result = new ArrayList<>();
+        filterThreeLevelMenus(root, 1, result);
+        return result;
+    }
+
+    private static void filterThreeLevelMenus(MenuNode node, int depth, List<MenuNode> result) {
+        if (depth == 3 && node.getChildren() != null && !node.getChildren().isEmpty()) {
+            result.add(node);
+        }
+        if (node.getChildren() != null) {
+            for (MenuNode child : node.getChildren()) {
+                filterThreeLevelMenus(child, depth + 1, result);
+            }
+        }
+    }
+}

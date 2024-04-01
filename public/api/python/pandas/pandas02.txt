@@ -1,0 +1,4 @@
+# 第一种方法
+df['date'] = pd.to_datetime(df['date'])
+# 第二种方法
+df[['Age']] = df[["Age"]].astype(float)

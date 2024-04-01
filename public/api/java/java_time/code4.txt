@@ -1,0 +1,24 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        /**
+         * 字符串 转 LocalDateTime
+         */
+        LocalDateTime dateTime=LocalDateTime.parse("2023-01-02 10:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println(dateTime);
+
+        /**
+         * LocalDateTime 转 字符串
+         */
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String dateStr = localDateTime.format(fmt);
+        System.out.println(dateStr);
+    }
+}

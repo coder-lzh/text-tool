@@ -1,0 +1,6 @@
+-- 查找进程
+ps -ef | grep "java"
+
+-- 排除其他  -v 就是排除的意思
+ps -ef | grep "java" | grep -v "grep"
+

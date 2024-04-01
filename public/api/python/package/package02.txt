@@ -1,0 +1,13 @@
+-- 清华镜像
+https://pypi.tuna.tsinghua.edu.cn/simple/
+-- 阿里云镜像
+http://mirrors.aliyun.com/pypi/simple/
+
+-- 安装项目环境的版本
+python -m pip install pip==21.1.1 -i http://pypi.douban.com/simple
+
+-- 指定镜像安装
+pip install sklearn -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+-- 如果你想永久更改你的默认镜像源，你可以在你的pip配置文件中添加镜像源 打开终端或命令提示符，输入以下命令：
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple

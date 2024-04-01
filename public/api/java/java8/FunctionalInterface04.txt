@@ -1,0 +1,13 @@
+package com.example.demo.func;
+
+import java.util.function.Consumer;
+
+public class Test3 {
+    public static void main(String[] args) {
+        /**
+         * 这个示例代码定义了一个 Consumer 接口对象，它接受一个字符串类型的参数，并将其打印到控制台上。
+         */
+        Consumer<String> consumer = (str) -> System.out.println(str);
+        consumer.accept("hello, world");
+    }
+}

@@ -1,0 +1,3 @@
+-- 查询大于1M的文件
+
+find /www/java/  -size +1M

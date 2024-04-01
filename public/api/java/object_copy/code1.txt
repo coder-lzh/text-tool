@@ -1,0 +1,62 @@
+import org.springframework.beans.BeanUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * 公众号：干货食堂
+ * <!-- Spring Core -->
+ * <dependency>
+ *     <groupId>org.springframework</groupId>
+ *     <artifactId>spring-core</artifactId>
+ *     <version>5.3.9</version>
+ * </dependency>
+ *
+ * <!-- Spring BeanUtils -->
+ * <dependency>
+ *     <groupId>org.springframework</groupId>
+ *     <artifactId>spring-beans</artifactId>
+ *     <version>5.3.9</version>
+ * </dependency>
+ */
+public class BeanCopyUtils {
+     /** 1、单个对象*/
+        public static <V> V copyBean(Object source, Class<V> clazz) {
+            /** 创建目标对象 实现属性拷贝*/
+            V result = null;
+            try {
+                result = clazz.newInstance();
+                /** 拷贝*/
+                BeanUtils.copyProperties(source, result);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return result;
+        }
+        public static <V> V copyBean(Object source, Class<V> clazz, String... excludeFields) {
+            V result = copyBean(source, clazz);
+            for (String fieldName : excludeFields) {
+                Field field = ReflectionUtils.findField(clazz, fieldName);
+                if (field != null) {
+                    field.setAccessible(true);
+                    ReflectionUtils.setField(field, result, null);
+                }
+            }
+            return result;
+        }
+
+        /** 2、集合*/
+        public static <O, V> List<V> copyList(List<O> list, Class<V> clazz) {
+            /** 创建目标对象 实现属性拷贝*/
+            return list.stream()
+                    .map(o -> copyBean(o, clazz))
+                    .collect(Collectors.toList());
+        }
+
+        public static <O, V> List<V> copyList(List<O> list, Class<V> clazz, String... excludeFields) {
+            /** 创建目标对象 实现属性拷贝*/
+            return list.stream()
+                    .map(o -> copyBean(o, clazz,excludeFields))
+                    .collect(Collectors.toList());
+        }
+}

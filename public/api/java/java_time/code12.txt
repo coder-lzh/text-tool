@@ -1,0 +1,43 @@
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    /**
+     * 获取两个日期之间的所有日期集合
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    private static List<String> getBetweenDates(Date startDate, Date endDate) {
+        List<String> listDate = new ArrayList<>();
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(startDate);
+            while (calendar.getTime().before(endDate) || calendar.getTime().equals(endDate)) {
+                listDate.add(dateFormat.format(calendar.getTime()));
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+            }
+            return listDate;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listDate;
+    }
+
+    public static void main(String[] args) throws Exception {
+        Date date = new Date();
+        Date newTime = dateFormat.parse("2023-03-26");
+        List<String> betweenDates = getBetweenDates(newTime, date);
+        betweenDates.forEach(e -> System.out.println(e));
+    }
+}

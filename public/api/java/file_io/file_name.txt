@@ -1,0 +1,13 @@
+// E:\BaiduNetdiskDownload\FFRenamePro_x64\FFRenamePro.exe
+File file = new File("");
+// 父路径
+String parent = file.getParent();
+
+// 文件全名称  FFRenamePro.exe
+String fileNameWithSuffix = file.getName();
+
+// 文件名称 FFRenamePro
+String fileName = fileNameWithSuffix.substring(0,fileNameWithSuffix.lastIndexOf("."));
+
+// 后缀 .exe
+String suffix = fileNameWithSuffix.substring(fileNameWithSuffix.lastIndexOf("."));

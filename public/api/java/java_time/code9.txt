@@ -1,0 +1,12 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Test {
+    public static void main(String args[]) {
+        //Date类型转换成字符串
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        String nowTime = format.format(date);
+        System.out.println("当前的时间：："+nowTime);//2023-03-28 22:16:42
+    }
+}

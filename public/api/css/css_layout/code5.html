@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        /**
+        css中 position有五种属性：　
+              static:默认值，没有定位
+              absolute:绝对定位，相对于父级元素进行定位
+              relative:相对定位
+              fixed:固定定位,相对于浏览器窗口进行定位
+              inherit:从父元素继承定位信息　　
+         */
+        .parent{
+            background-color: #00ff22;
+            height: 300px;
+            width: 300px;
+            /*父元素必须设置relative*/
+            position: relative;
+        }
+        .child{
+            background-color: #ff0000;
+            height: 100px;
+            width: 100%;
+            /*子元素必须设置absolute，bottom=0 */
+            position: absolute;
+            bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="parent">
+        <div class="child"></div>
+    </div>
+</body>
+</html>

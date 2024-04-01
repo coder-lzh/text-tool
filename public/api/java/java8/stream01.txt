@@ -1,0 +1,7 @@
+// parallel 是并发执行
+// 这两个方法的区别在于一个是闭区间，一个是半开半闭区间：
+// rangeClosed(1, 100) ：[1, 100]
+// range(1, 100) ：[1, 100)
+IntStream.rangeClosed(1, 100).parallel().forEach(e -> {
+    System.out.println(e);
+});

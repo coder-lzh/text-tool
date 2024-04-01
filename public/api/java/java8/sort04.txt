@@ -1,0 +1,39 @@
+public static void main(String[] args) throws Exception{
+        List<User> arrayList = new ArrayList();
+        User user1 = new User("15.88","我");
+        User user2 = new User("15.88","擦");
+        User user3 = new User("15.88","嘻嘻");
+        User user4 = new User("15.88","看");
+        arrayList.add(user1);arrayList.add(user2);arrayList.add(user3);arrayList.add(user4);
+        System.out.println(arrayList);
+
+    	java8排序
+        /*arrayList = arrayList.stream()
+                .sorted(
+                        Comparator.comparing((User e) -> Double.valueOf(e.getScore())).reversed()
+                                .thenComparing((User e) -> e.getName())
+                ).collect(Collectors.toList());
+        System.out.println(arrayList);*/
+
+
+
+        /*分数倒序，名字正序*/
+        Comparator<Object> compareIns = Collator.getInstance(java.util.Locale.CHINA);
+        arrayList.sort((o1, o2) -> {
+            int perCom = Double.valueOf(o2.getScore()).compareTo(Double.valueOf(o1.getScore()));
+            if (perCom == 0) {
+                return compareIns.compare(o1.getName(), o2.getName());
+            } else {
+                return perCom;
+            }
+        });
+        System.out.println(arrayList);
+    }
+
+
+@Data
+@AllArgsConstructor
+public class User extends BaseVo{
+    private String score;
+    private String name;
+}

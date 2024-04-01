@@ -1,0 +1,29 @@
+import org.apache.commons.io.IOUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Arrays;
+
+/**
+ * 公众号：干货食堂
+ * <dependency>
+ *   <groupId>commons-io</groupId>
+ *   <artifactId>commons-io</artifactId>
+ *   <version>2.5</version>
+ * </dependency>
+ */
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+
+        // 字节 转 IO流
+        byte[] bytes = "公众号：干货食堂".getBytes();
+        InputStream inputStream = new ByteArrayInputStream(bytes);
+        System.out.println(inputStream);
+
+
+        // IO流 转 字节
+        byte[] bytes1  = IOUtils.toByteArray(inputStream);
+        System.out.println(Arrays.toString(bytes1));
+    }
+}

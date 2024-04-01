@@ -1,0 +1,30 @@
+/**
+ * 公众号：干货食堂
+ * 作者：敲代码的卡卡罗特
+ */
+@org.junit.Test
+public void test3(){
+	//List 以ID分组 Map<Integer,List<Apple>>
+	Map<Integer, List<Apple>> groupBy = appleList.stream().collect(Collectors.groupingBy(Apple::getId));
+	for (Map.Entry<Integer, List<Apple>> entry : groupBy.entrySet()) {
+		System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+	}
+	System.out.println("-----------另外一种分组，取list中的一个作为value-------------");
+	Map<Integer, Apple> appleMap = appleList.stream().collect(Collectors.toMap(Apple::getId, a -> a,(k1,k2)->k2));
+	for (Map.Entry<Integer, Apple> entry : appleMap.entrySet()) {
+		System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+	}
+	System.out.println("-----------另外一种分组，取list中的某个字段作为value-------------");
+	Map<Integer, List<String>> groupBy2 = appleList.stream().collect(Collectors.groupingBy(Apple::getId,Collectors.mapping(Apple::getName,Collectors.toList())));
+	for (Map.Entry<Integer, List<String>> entry : groupBy2.entrySet()) {
+		System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+	}
+	System.out.println("-----------分组+排序-------------");
+	TreeMap<Integer, List<Apple>> matchsListMap = appleList.stream()
+            .collect(Collectors.groupingBy(Apple::getNum,TreeMap::new,Collectors.toList()));
+    //倒叙排序
+    NavigableMap <Integer, List<Apple>> descendingMap = matchsListMap.descendingMap();
+    for (Map.Entry<Integer, List<Apple>> entry : descendingMap.entrySet()) {
+        System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+    }
+}

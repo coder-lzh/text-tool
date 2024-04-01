@@ -1,0 +1,13 @@
+import java.util.Arrays;
+
+public class Demo {
+
+    public static void main(String[] args) throws Exception{
+        boolean b = Arrays.asList(1,2,3).stream().anyMatch(e -> e==2);
+        boolean b2 = Arrays.asList(1,2,3).stream().allMatch(e -> e==2);
+        boolean b3 = Arrays.asList(1,2,3).stream().noneMatch(e -> e==2);
+        System.out.println(b); //true
+        System.out.println(b2);//false
+        System.out.println(b3);//false
+    }
+}

@@ -1,0 +1,13 @@
+/**
+ * 公众号：干货食堂
+ * 作者：敲代码的卡卡罗特
+ */
+@org.junit.Test
+public void test3(){
+	//普通字符串去重
+	list.stream().stream().distinct().collect(Collectors.toList());
+	//对象单字段去重 根据ID去重
+	list.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(User::getId))), ArrayList::new));
+	//对象多字段去重 根据ID+名字去重
+	list.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(e -> e.id + "_" + e.getName()))), ArrayList::new));
+}

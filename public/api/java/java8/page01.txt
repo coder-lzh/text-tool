@@ -1,0 +1,13 @@
+/**
+ * 公众号：干货食堂
+ * 作者：敲代码的卡卡罗特
+ */
+public class Test {
+    public static void main(String[] args) {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6);
+        //从索引2开始  截取3个
+        Stream<Integer> stream = list.stream().skip(2).limit(3);
+        List<Integer> result = stream.collect(Collectors.toList());
+        System.out.println(result); // [3, 4, 5]
+    }
+}

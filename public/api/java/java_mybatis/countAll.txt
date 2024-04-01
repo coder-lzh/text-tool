@@ -1,0 +1,3 @@
+<select id="countAll" resultType="int">
+    select count(id) from items
+</select>

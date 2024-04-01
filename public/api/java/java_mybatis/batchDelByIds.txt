@@ -1,0 +1,7 @@
+ <!--通过主键列表删除，列表长度不能为0-->
+<delete id="deleteByIds" parameterType="list">
+    delete from items where id in
+    <foreach item="id" collection="ids" separator="," open="(" close=")" index="index">
+        #{id}
+    </foreach>
+</delete>

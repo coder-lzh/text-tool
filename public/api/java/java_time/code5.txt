@@ -1,0 +1,41 @@
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    public static void main(String[] args) {
+        /**
+         * Date  转  LocalDate
+         */
+        Date date = new Date();
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
+        LocalDate localDate = instant.atZone(zoneId).toLocalDate();
+        System.out.println("Date = " + date);
+        System.out.println("LocalDate = " + localDate);
+        //Date = Tue Mar 28 22:04:20 CST 2023
+        //LocalDate = 2023-03-28
+
+        /**
+         * LocalDate  转  Date
+         */
+        ZoneId zoneId2 = ZoneId.systemDefault();
+        LocalDate localDate2 = LocalDate.now();
+        ZonedDateTime zdt = localDate.atStartOfDay(zoneId2);
+
+        Date date2 = Date.from(zdt.toInstant());
+
+        System.out.println("LocalDate2 = " + localDate2);
+        System.out.println("Date = " + date2);
+        //LocalDate = 2023-03-28
+        //Date = Tue Mar 28 00:00:00 CST 2023
+    }
+}

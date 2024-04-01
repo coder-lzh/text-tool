@@ -1,0 +1,3 @@
+-- 设置用户名和邮箱
+git config --global user.email "你的邮箱@mail.com";
+git config --global user.name "your-username"

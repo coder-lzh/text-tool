@@ -1,0 +1,111 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+
+    public static void main(String[] args) {
+        List<User> userList = init();
+
+        /**
+         * 性别分组，统计每个性别的薪水和
+         * {女=2900, 男=6400}
+         */
+        Map<String, BigDecimal> decimalMap = userList.stream()
+                .collect(Collectors.groupingBy(m -> m.getSex()
+                        , Collectors.mapping(m -> m.getSalary()
+                                , Collectors.reducing(BigDecimal.ZERO, BigDecimal::add))));
+
+        System.out.println(decimalMap);
+
+
+        /**
+         * 性别分组，统计每个性别的年龄和
+         * {女=45, 男=138}
+         */
+        Map<String, Integer> integerMap = userList.stream()
+                .collect(Collectors.groupingBy(m -> m.getSex(),
+                        Collectors.summingInt(m -> m.getAge())));
+        System.out.println(integerMap);
+
+        /**
+         * 性别分组，统计每个性别下的人数
+         * {女=2, 男=4}
+         */
+        Map<String, Long> countMap = userList.stream()
+                .collect(Collectors.groupingBy(m -> m.getSex(), Collectors.counting()));
+        System.out.println(countMap);
+
+
+        /**
+         * 方法1：将分组后的对象所有字段相加得到一个对象
+         */
+        Map<String, User> collect = userList.stream().collect(Collectors.toMap(User::getDepartment, Function.identity(), (u1, u2) -> {
+            u1.setAge(u1.getAge() + u2.getAge());
+            u1.setSalary(u1.getSalary().add(u2.getSalary()));
+            return u1;
+        }));
+        System.out.println(collect);
+
+
+        /**
+         * 方法2：分组之后得到最值
+         */
+        Map<String, User> map = userList.stream()
+                .collect(Collectors.toMap(User::getDepartment, Function.identity(),
+                        BinaryOperator.maxBy(Comparator.comparing(User::getAge))));
+        System.out.println(map);
+
+        /**
+         * 方法3
+         */
+        Map<String, User> map2 = userList.stream().collect(
+                Collectors.groupingBy(User::getDepartment, Collectors.collectingAndThen(
+                        Collectors.reducing((t1, t2) -> t1.getAge() > t2.getAge() ? t1 : t2),
+                        Optional::get
+                ))
+        );
+    }
+
+    /**
+     * 初始化数据
+     */
+    public static List<User> init() {
+        List<User> userList = new ArrayList<User>();
+        userList.add(new User(1, "干货食堂_01", "男", 32, "研发部", BigDecimal.valueOf(1600)));
+        userList.add(new User(2, "干货食堂_02", "男", 30, "财务部", BigDecimal.valueOf(1800)));
+        userList.add(new User(3, "干货食堂_03", "女", 20, "人事部", BigDecimal.valueOf(1700)));
+        userList.add(new User(4, "干货食堂_04", "男", 38, "研发部", BigDecimal.valueOf(1500)));
+        userList.add(new User(4, "干货食堂_04", "男", 38, "研发部02", BigDecimal.valueOf(1500)));
+        userList.add(new User(5, "干货食堂_05", "女", 25, "财务部", BigDecimal.valueOf(1200)));
+        return userList;
+    }
+
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class User {
+        int id;
+        String name;
+        String sex;
+        int age;
+        String Department;
+        BigDecimal Salary;
+
+    }
+}

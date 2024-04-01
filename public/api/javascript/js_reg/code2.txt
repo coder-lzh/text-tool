@@ -1,0 +1,46 @@
+// 正则表达式中：g 表示的是全局模式匹配
+// 正则表达式中：i 表示的是忽略大小写
+// 正则表达式中：()表示的是分组，$1表示获取分组1中的内容
+// 正则表达式中：【.match()】方法表示获取匹配内容
+// 正则表达式中：【.replace()】方法表示替换内容
+// 正则表达式中：【.trim()】方法表示去除字符串两端空格
+
+// （1）获取字符串中的全部匹配数字
+var str="中国移动:10086,中国联通:10010,中国电信:10000";
+//把里面所有的数字全部显示出来
+var array=str.match(/\d{5}/g);
+console.log(array);
+
+// （2）获取字符串中的全部邮箱
+var str = "123123@xx.com,fangfang@valuedopinions.cn 286669312@qq.com 2、emailenglish@emailenglish.englishtown.com 286669312@qq.com...";
+var array = str.match(/\w+@\w+\.\w+(\.\w+)?/g);
+console.log(array);
+
+// （3）获取年-月-日中的日，使用()进行分组
+var str="2017-11-12";
+var array=str.match(/(\d{4})[-](\d{2})[-](\d{2})/g);
+//console.log(array);
+//正则表达式对象.$3
+console.log(RegExp.$3);
+
+// （4）获取Email的拆分结果
+var email="shuaiyangtaishuaile@itcast.com.cn";
+email.match(/([0-9a-zA-Z_.-]+)[@]([0-9a-zA-Z_-]+)(([.][a-zA-Z]+){1,2})/);
+console.log(RegExp.$1);//用户名
+console.log(RegExp.$2);//126
+console.log(RegExp.$3);//域名
+
+// （5）替换字符串中的内容
+var str="dqihdiewbciew";
+str=str.replace(/e/g,"fdd");
+console.log(str);
+
+// （6）去除字符串两端的空格
+var str="  wewdw    ,wewcew  ";
+str=str.trim();
+console.log("==="+str+"===");
+
+// （7）忽略大小写替换字符串中内容
+var str="HhpphH";//SSppSS
+str=str.replace(/[h]/gi,"S");
+console.log(str);

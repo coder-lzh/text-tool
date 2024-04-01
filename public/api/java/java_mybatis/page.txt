@@ -1,0 +1,46 @@
+<select id="selectPageByDto" resultMap="BaseResultMap">
+    select a.*
+    from tb_order_detail a
+    <where>
+        <if test="param.id !=null">
+            AND a.id = #{param.id}
+        </if>
+        <if test="param.keyword !=null and param.keyword !='' ">
+            AND a.name LIKE CONCAT('%', #{param.keyword}, '%')
+        </if>
+        <if test="param.ids !=null and param.ids.size() > 0 ">
+            AND a.id in
+            <foreach item="id" collection="ids" separator="," open="(" close=")" index="index">
+                #{id}
+            </foreach>
+        </if>
+        <if test="param.customId !=null">
+            AND a.custom_id = #{param.customId}
+        </if>
+        <if test="param.orderId !=null and param.orderId !='' ">
+            AND a.order_id = #{param.orderId}
+        </if>
+        <if test="param.orderTime !=null and param.orderTime !='' ">
+            and to_char(a.order_time,'yyyy-MM-dd') =  #{param.orderTime}
+        </if>
+        <if test="param.startTime != null">
+        	<![CDATA[ AND a.create_time >= #{param.startTime}]]>
+        </if>
+        <if test="param.endTime != null">
+            <![CDATA[ AND a.create_time <= #{param.endTime}]]>
+        </if>
+    </where>
+
+     <choose>
+          <when test="param.sortField != null and param.sortType != null">
+                ORDER BY  ${param.sortField} ${param.sortType}
+          </when>
+          <otherwise>
+                ORDER BY update_time DESC
+          </otherwise>
+     </choose>
+
+    <if test="pageDto != null pageDto.pageSize != null and pageDto.offset != null">
+         LIMIT #{offset}, #{pageSize}
+    </if>
+</select>

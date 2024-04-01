@@ -1,0 +1,14 @@
+<select id="countByEntity" parameterType="com.ganhuoshitang.entity.Items" resultType="int">
+    select count(id) from items
+    <where>
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="itemName != null">
+            and item_name = #{itemName}
+        </if>
+        <if test="catId != null">
+            and cat_id = #{catId}
+        </if>
+    </where>
+</select>

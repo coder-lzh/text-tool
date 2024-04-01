@@ -1,0 +1,6 @@
+/**
+ * 获取当前时间
+ */
+private static String getNowTime() {
+   return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(new Date());
+}

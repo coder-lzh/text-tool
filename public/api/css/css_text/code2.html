@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            background: #00a100;
+            display: inline-block;
+        }
+
+        .hover {
+            position: relative;
+        }
+        .hover:hover::before {
+            content: "hover时显示的文字";
+            position: absolute;
+            left: 0;
+            bottom: -200%;
+            background-color: #000;
+            color: #fff;
+            padding: 4px;
+            border-radius: 4px;
+
+            width: max-content;
+            z-index: 99999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container hover">
+        公众号：干货食堂
+    </div>
+</body>
+</html>

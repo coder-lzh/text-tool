@@ -1,0 +1,11 @@
+ <!-- 通用查询结果列 -->
+<sql id="Base_Column_List">
+    id, custom_id, order_id,cut_amount,create_by,create_time,update_by,update_time
+</sql>
+
+
+<select id="selectAll">
+    select
+        <include refid="Base_Column_List" />
+    from 表名
+</select>

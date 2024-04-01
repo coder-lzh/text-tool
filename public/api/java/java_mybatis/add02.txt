@@ -1,0 +1,20 @@
+<!--新增实体属性不为null的列-->
+<insert id="insert" keyProperty="id" useGeneratedKeys="true" parameterType="com.ganhuoshitang.entity.Items">
+    insert into items
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+         id,
+      </if>
+      <if test="itemName != null">
+         item_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+         #{id},
+      </if>
+      <if test="itemName != null">
+         #{itemName},
+      </if>
+    </trim>
+</insert>

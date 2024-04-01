@@ -1,0 +1,26 @@
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * 公众号：干货食堂
+ *   <dependency>
+ *         <groupId>org.apache.commons</groupId>
+ *         <artifactId>commons-collections4</artifactId>
+ *         <version>4.3</version>
+ *     </dependency>
+ */
+public class Test {
+
+    public static void main(String[] args) {
+        String[] arrayA = new String[] { "A", "B", "C", "D", "E", "F" };
+        String[] arrayB = new String[] { "B", "D", "F", "G", "H", "K" };
+        List<String> listA = Arrays.asList(arrayA);
+        List<String> listB = Arrays.asList(arrayB);
+        //2个数组取交集 的补集
+        System.out.println(ArrayUtils.toString(CollectionUtils.disjunction(listA, listB)));
+        //[A, C, E, G, H, K]
+    }
+}

@@ -1,0 +1,59 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    /**
+     * 注意：findFirst() 和 findAny() 都是获取列表中的第一条数据，但是findAny()操作，返回的元素是不确定的，
+     * 对于同一个列表多次调用findAny()有可能会返回不同的值。使用findAny()是为了更高效的性能。如果是数据较少，
+     * 串行地情况下，一般会返回第一个结果，如果是并行（parallelStream并行流）的情况，那就不能确保是第一个。
+     *
+     * 例如：使用parallelStream并行流，findAny() 返回的就不一定是第一条数据。
+     * @param args
+     */
+    public static void main(String[] args) {
+        List<User> userList = init();
+        //获取用户名称为“干货食堂_04”的用户信息，如果没有找到则返回null
+        User user = userList.stream().filter(u -> u.getName().equals("干货食堂_04")).findAny().orElse(null);
+        //parallelStream方法能生成并行流，使用findAny返回的不一定是第一条数据
+//        User user = userList.parallelStream().filter(u -> u.getName().startsWith("干货食堂_04")).findAny().orElse(null);
+        //打印用户信息
+        System.out.println(user);
+    }
+
+    /**
+     * 初始化数据
+     */
+    public static List<User> init() {
+        List<User> userList = new ArrayList<User>();
+        userList.add(new User(1, "干货食堂_01", "男", 32, "研发部", BigDecimal.valueOf(1600)));
+        userList.add(new User(2, "干货食堂_02", "男", 30, "财务部", BigDecimal.valueOf(1800)));
+        userList.add(new User(3, "干货食堂_03", "女", 20, "人事部", BigDecimal.valueOf(1700)));
+        userList.add(new User(4, "干货食堂_04", "男", 38, "研发部", BigDecimal.valueOf(1500)));
+        userList.add(new User(4, "干货食堂_04", "男", 38, "研发部02", BigDecimal.valueOf(1500)));
+        userList.add(new User(5, "干货食堂_05", "女", 25, "财务部", BigDecimal.valueOf(1200)));
+        return userList;
+    }
+
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class User {
+        int id;
+        String name;
+        String sex;
+        int age;
+        String Department;
+        BigDecimal Salary;
+
+    }
+}

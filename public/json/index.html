@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="x-admin-sm" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link href="https://cdn.bootcdn.net/ajax/libs/layui/2.7.6/css/layui.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.10.0/jsoneditor.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/layui/2.7.6/layui.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jsoneditor/9.10.0/jsoneditor.js"></script>
+    <style>
+        #leftDiv {
+            background: #ffffff;
+            height: 800px;
+            overflow: auto;
+        }
+
+        [contenteditable]:focus {
+            outline: none;
+        }
+
+        textarea {
+            margin: 5px;
+            height: 98%;
+            width: 98%;
+            border: 1px solid #eee;
+            resize: none;
+            font-size: 18px;
+            font-family: cursive;
+        }
+
+        textarea:focus {
+            outline: 0;
+            border: 0px solid #d2d2d2;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(20, 92, 205, .6);
+        }
+
+        .leftBtnList {
+            background: #ffffff;
+            border-bottom: 1px solid #ddd;
+            padding: 5px;
+            height: 20px;
+            display: flex;
+        }
+
+        .btnItem {
+            padding: 0 10px;
+            cursor: pointer;
+            font-size: 14px;
+            border-right: 1px solid #dddddd;
+        }
+
+        .btnItem:hover {
+            background: #f8f8f8;
+            /*font-weight: bold;*/
+            color: #5aaa44;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <form class="layui-form-pane">
+        <div class="layui-row layui-col-space10">
+
+            <div class="layui-col-md6">
+                <div class="leftBtnList">
+                    <div id="geshihua" class="btnItem">格式化</div>
+                    <div id="yasuo" class="btnItem">压缩</div>
+                    <div id="fuzhi" class="btnItem">复制</div>
+                    <div id="delAndZy" class="btnItem">删除空格并转义</div>
+                    <div id="zy" class="btnItem">去除转义</div>
+                    <div id="qk" class="btnItem">清空</div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div class="layui-form-item layui-form-text">
+                            <textarea id="leftDiv"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-col-md6">
+                <div class="layui-card">
+                    <div class="layui-card-body ">
+                        <div class="layui-form-item layui-form-text">
+                            <div id="reqDiv" style="height: 850px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+</body>
+<script>
+    const container = document.getElementById('reqDiv')
+    const options = {}
+    const editor = new JSONEditor(container, options)
+
+    layui.use(['layer', 'util'], function () {
+
+        let geshihua = document.getElementById("geshihua")
+        geshihua.onclick = function () {
+            formatJson();
+        }
+
+        let yasuo = document.getElementById("yasuo")
+        yasuo.onclick = function () {
+            compress();
+        }
+
+        let fuzhi = document.getElementById("fuzhi")
+        fuzhi.onclick = function () {
+            copyJson();
+        }
+
+        let delAndZy = document.getElementById("delAndZy")
+        delAndZy.onclick = function () {
+            transferred();
+        }
+
+        let zy = document.getElementById("zy")
+        zy.onclick = function () {
+            noTransferred();
+        }
+
+        let qk = document.getElementById("qk")
+        qk.onclick = function () {
+            clear();
+        }
+
+
+        function getJson() {
+            const container = document.getElementById('leftDiv')
+            let str = container.value.replace(/'/g, '"')   //单引号替换为双引号
+            return str;
+        }
+
+        function setJson(json) {
+            const container = document.getElementById('leftDiv')
+            return container.value = json;
+        }
+
+        function formatJson() {
+            if (isJSON(getJson())) {
+                let jsonX = getJson();
+                jsonX = jsonX.trim()
+                let parse = JSON.parse(jsonX);
+                let stringify = JSON.stringify(parse, null, 2);
+                console.log(stringify)
+                setJson(stringify);
+
+                editor.setText(stringify)
+
+            }
+        }
+
+        function transferred() {
+            let jsonX = getJson();
+            jsonX = jsonX.replace(/\s+/g, "").replace(/(\")/g, "\\$1");
+            setJson(jsonX);
+        }
+
+        function noTransferred() {
+            let jsonX = getJson();
+            //正则表达式 匹配全部"\" 需要加 /g
+            let reg = /\\/g;
+            //使用replace方法将全部匹配正则表达式的转义符替换为空
+            jsonX = jsonX.replace(reg, '');
+            setJson(jsonX);
+        }
+
+        function compress() {
+            let json = getJson()
+            if (json) {
+                json = JSON.stringify(JSON.parse(json));
+                setJson(json)
+            }
+        }
+
+        function copyJson() {
+            let json = getJson()
+            copyText(json)
+            layer.msg('已复制到粘贴板');
+        }
+
+        function clear() {
+            setJson('')
+        }
+
+        function isJSON(str) {
+            if (typeof str == 'string') {
+                try {
+                    let obj = JSON.parse(str);
+                    if (typeof obj == 'object' && obj) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    console.log(e)
+                    layer.msg(e.message);
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        function copyText(text) {
+            const textarea = document.createElement('textarea')
+            textarea.value = text
+            textarea.readOnly = 'readOnly'
+            document.body.appendChild(textarea)
+            textarea.select() // 选中文本内容
+            textarea.setSelectionRange(0, text.length)
+
+            document.execCommand('copy')
+            textarea.remove()
+        }
+
+    });
+</script>
+</html>

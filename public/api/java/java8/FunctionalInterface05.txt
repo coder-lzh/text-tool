@@ -1,0 +1,47 @@
+package com.example.demo;
+
+import java.util.function.Function;
+
+
+public class TestFunction {
+
+    public static void main(String[] args) {
+        System.out.println(testFunction1(2,i -> i * 2 + 1));//5
+        System.out.println(testFunction2(2,i -> i * 2 + 1,j -> j * j));//9
+        System.out.println(testFunction3(2,i -> i * 2 + 1,j -> j * j));//25
+    }
+
+    /**
+     * Function<Integer,Integer>  说明该函数入参是 Integer  出参也是Integer
+     * @param i
+     * @param function
+     * @return
+     */
+    public static int testFunction1(int i, Function<Integer,Integer> function) {
+        return function.apply(i);
+    }
+
+
+    /**
+     * 先执行  function2 然后再将function2得到的结果当做参数 执行 function1
+     * @param i
+     * @param function1
+     * @param function2
+     * @return
+     */
+    public static int testFunction2(int i, Function<Integer,Integer> function1,Function<Integer,Integer> function2) {
+        return function1.compose(function2).apply(i);
+    }
+
+    /**
+     * 先执行  function1  在执行  function2
+     * @param i
+     * @param function1
+     * @param function2
+     * @return
+     */
+    public static int testFunction3(int i, Function<Integer,Integer> function1,Function<Integer,Integer> function2) {
+
+        return function1.andThen(function2).apply(i);
+    }
+}

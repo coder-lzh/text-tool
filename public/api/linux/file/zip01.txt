@@ -1,0 +1,32 @@
+-- 校验zip命令是否存在
+rpm -q zip
+
+
+-- Ubuntu版本 安装zip
+sudo apt install zip unzip
+-- CentOS版本 安装zip
+yum install -y unzip zip
+
+============================================打包================================================
+
+-- 将路径/panV3/ssl 文件夹 下的文件打包到 xx.zip , 注意，ssl文件夹也会打包进去
+zip -r xx.zip /panV3/ssl
+
+-- 将指定的文件打包到zip，这样写会把app文件夹
+zip xx2.zip ./app/start.sh ./app/pan_v3.sql
+-- 这样写不会打包文件夹
+zip xx3.zip start.sh pan_v3.sql
+-- 这样写会把 文件夹 /panV3/app 打包进去
+zip xx4.zip /panV3/app/start.sh /panV3/app/pan_v3.sql
+
+
+-- -x排除指定文件夹
+zip -r target.zip folder -x "*.txt" -x "*.log"
+
+
+============================================解压================================================
+
+unzip file.zip
+
+-- 使用unzip命令指定解压目录
+unzip file.zip -d /path/to/destination

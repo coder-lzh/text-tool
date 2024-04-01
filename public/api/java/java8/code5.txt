@@ -1,0 +1,14 @@
+/**
+* 公众号：干货食堂
+* 作者：敲代码的卡卡罗特
+*/
+@org.junit.Test
+public void test1(){
+	//对象计数  根据名字分组计数
+	Map<String, Long> map = appleList.stream().collect(Collectors.groupingBy(p -> p.getName(),Collectors.counting()));
+	map.forEach((k, v) -> System.out.println(k + ":" + v));
+	//普通计数
+	List<String> list = Arrays.asList("A","A","B");
+    Map<String, Long> map = list.stream().collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+    map.forEach((k, v) -> System.out.println(k + ":" + v));
+}

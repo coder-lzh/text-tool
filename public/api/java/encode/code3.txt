@@ -1,0 +1,58 @@
+/**
+ * 公众号：干货食堂
+ */
+public class UnicodeUtils {
+    /**
+     * 字符串转unicode
+     * @param str
+     * @return
+     */
+    public static String stringToUnicode(String str) {
+        StringBuilder unicodeBuilder = new StringBuilder();
+        for (char ch : str.toCharArray()) {
+            unicodeBuilder.append("\\u").append(String.format("%04x", (int) ch));
+        }
+        return unicodeBuilder.toString();
+    }
+
+    /**
+     * unicode转字符串
+     * @param unicodeString
+     * @return
+     */
+    public static String unicodeToString(String unicodeString) {
+        StringBuilder stringBuilder = new StringBuilder();
+        int index = 0;
+        while (index < unicodeString.length()) {
+            if (unicodeString.charAt(index) == '\\') {
+                if (index + 1 < unicodeString.length() && unicodeString.charAt(index + 1) == 'u') {
+                    String hexCode = unicodeString.substring(index + 2, index + 6);
+                    int charCode = Integer.parseInt(hexCode, 16);
+                    stringBuilder.append((char) charCode);
+                    index += 6;
+                } else {
+                    stringBuilder.append(unicodeString.charAt(index));
+                    index++;
+                }
+            } else {
+                stringBuilder.append(unicodeString.charAt(index));
+                index++;
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+
+    public static void main(String[] args) {
+        String str = "Hello";
+
+        // 字符串转Unicode编码
+        String unicodeString = UnicodeUtils.stringToUnicode(str);
+        System.out.println(unicodeString); // 输出: \u0048\u0065\u006c\u006c\u006f
+
+        // Unicode编码转字符串
+        String convertedString = UnicodeUtils.unicodeToString(unicodeString);
+        System.out.println(convertedString); // 输出: Hello
+    }
+
+}

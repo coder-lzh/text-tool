@@ -1,0 +1,46 @@
+//查看本地分支
+git branch
+
+//查看远程分支
+git branch -r
+
+//查看所有分支
+git branch -a
+
+//查看本地分支和远程分支的绑定关系
+git branch -vv
+
+//绑定本地分支和远程分支的关系，分为2种情况
+//第一种：远程分支不存在
+git push --set-upstream origin feature/add_order (将本地分支与远程分支关联 ，远程也会新建一个分支 feature/add_order)
+
+//第二种：远程分支存在
+git branch -u origin/feature/add_order
+
+//撤销本地分支与远程分支的映射关系
+git branch --unset-upstream
+
+//创建本地分支
+git branch 分支名
+
+//切换分支
+git checkout 分支名
+
+//推送分支、 如果远程没有这个分支他会自动创建这个分支
+git push origin 分支名
+
+//创建+切换分支
+git checkout -b 分支名
+
+//删除本地分支
+git branch -d 分支名
+
+//删除远程分支
+git push origin --delete dev
+
+//合并某分支到当前分支
+git merge 分支名
+
+
+//指定文件夹push到指定分支
+git subtree push --prefix=docs/.vitepress/dist origin gh-pages

@@ -1,0 +1,25 @@
+// 换为基本数据类型方法
+toString()                将BigDecimal对象的数值转换成字符串。
+doubleValue()          将BigDecimal对象中的值以双精度数返回。
+floatValue()             将BigDecimal对象中的值以单精度数返回。
+longValue()             将BigDecimal对象中的值以长整数返回。
+intValue()               将BigDecimal对象中的值以整数返回。
+
+// BigDecimal对象的常用方法
+BigDecimal add(BigDecimal value)：加法，求两个BigDecimal类型数据的和。
+
+BigDecimal subtract(BigDecimal value)：减法，求两个BigDecimal类型数据的差。
+
+BigDecimal multiply(BigDecimal  value)：乘法，求两个BigDecimal类型数据的积。
+
+BigDecimal divide(BigDecimal divisor)：除法，求两个BigDecimal类型数据的商。
+
+BigDecimal remainder(BigDecimal divisor)：求余数，求BigDecimal类型数据除以divisor的余数。
+
+BigDecimal max(BigDecimal value)：最大数，求两个BigDecimal类型数据的最大值。
+
+BigDecimal min(BigDecimal value)：最小数，求两个BigDecimal类型数据的最小值。
+
+BigDecimal abs()：绝对值，求BigDecimal类型数据的绝对值。
+
+BigDecimal negate()：相反数，求BigDecimal类型数据的相反数。

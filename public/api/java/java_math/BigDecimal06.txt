@@ -1,0 +1,103 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+
+/**
+ * @author: 公众号: 干货食堂
+ * @date: 2023/7/6
+ * @desc: 数字工具类
+ */
+public class BigDecimalUtil {
+
+    /**
+     * 两数相除
+     *
+     * @param a
+     * @param b
+     * @param scale
+     * @return
+     */
+    public static BigDecimal divide(Long a, Long b, Integer scale) {
+        BigDecimal bigDecimalA = new BigDecimal(a);
+        BigDecimal bigDecimalB = new BigDecimal(b);
+        return bigDecimalA.divide(bigDecimalB, scale,BigDecimal.ROUND_HALF_UP);
+    }
+    public static BigDecimal divide(BigDecimal a, BigDecimal b, Integer scale) {
+        if (b.compareTo(BigDecimal.ZERO) == 0) {
+            throw new LazChoicePubChannelException(ErrorCode.PARAMETER_ERROR, "当前操作涉及运算，分母为0不允许通过，请重试");
+        }
+        return a.divide(b, scale, BigDecimal.ROUND_HALF_UP);
+    }
+
+    /**
+     * 小数转百分数
+     *
+     * @param decimal
+     * @return
+     */
+    public static String decimal2Percentage(BigDecimal decimal) {
+        return decimal2Percentage(decimal, 0);
+    }
+    public static String decimal2Percentage(String val) {
+        return decimal2Percentage(new BigDecimal(val), 2);
+    }
+    public static String decimal2Percentage(String val, Integer scale) {
+        return decimal2Percentage(new BigDecimal(val), scale);
+    }
+
+    public static String decimal2Percentage(BigDecimal decimal, Integer scale) {
+        NumberFormat percentInstance = NumberFormat.getPercentInstance();
+        // 保留几位百分数
+        percentInstance.setMinimumFractionDigits(scale);
+        return percentInstance.format(decimal.doubleValue());
+    }
+
+    /**
+     * 保留指定小数 四舍五入
+     *
+     * @param decimal
+     * @param scale
+     * @return
+     */
+    public static BigDecimal keepDecimals(BigDecimal decimal, Integer scale) {
+        return decimal.setScale(scale, BigDecimal.ROUND_HALF_UP);
+    }
+    public static BigDecimal keepDecimals(String decimal, Integer scale) {
+        return new BigDecimal(decimal).setScale(scale, BigDecimal.ROUND_HALF_UP);
+    }
+
+    /**
+     * 把百分比数转化成对应的小数
+     *
+     * @param percentageStr 需要转化的百分比字符串
+     * @return 转化后的小数
+     */
+    public static BigDecimal getPercentageToDecimal(String percentageStr, Integer scale) {
+        String replace = percentageStr.replace("%", "");
+        return divide(new BigDecimal(replace), new BigDecimal(100), scale);
+    }
+
+    /**
+     * 安全加法-忽略为空，为空视为0
+     * @param a
+     * @param b
+     * @return
+     */
+    public static BigDecimal safeAdd(BigDecimal a, BigDecimal b) {
+        if (a == null) a = BigDecimal.ZERO;
+        if (b == null) b = BigDecimal.ZERO;
+        return a.add(b);
+    }
+
+    /**
+     * 判断是否为0
+     * @param a
+     * @return
+     */
+    public static Boolean isZero(BigDecimal a) {
+        return a == null || BigDecimal.ZERO.compareTo(a) == 0;
+    }
+    public static Boolean isZero(String a) {
+        return StringUtils.isBlank(a) ||  isZero(new BigDecimal(a));
+    }
+}

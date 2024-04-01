@@ -1,0 +1,59 @@
+import com.carrotsearch.sizeof.RamUsageEstimator;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+/**
+ * 公众号：干货食堂
+ * <dependency>
+ *   <groupId>com.carrotsearch</groupId>
+ *   <artifactId>java-sizeof</artifactId>
+ *   <version>0.0.5</version>
+ * </dependency>
+ */
+public class Test {
+
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < 2000000; i++) {
+            list.add(i + "");
+        }
+        System.out.println(getObjectSize(list, SizeEnum.KB));
+    }
+
+    public enum SizeEnum {
+        B {
+            @Override
+            public double getFromByteSize(long byteSize) {
+                return byteSize;
+            }
+        }, KB {
+            @Override
+            public double getFromByteSize(long byteSize) {
+                return byteSize * 1.0 / 1024;
+            }
+        }, MB {
+            @Override
+            public double getFromByteSize(long byteSize) {
+                return byteSize * 1.0 / 1024 / 1024;
+            }
+        }, GB {
+            @Override
+            public double getFromByteSize(long byteSize) {
+                return byteSize * 1.0 / 1024 / 1024 / 1024;
+            }
+        };
+
+        public abstract double getFromByteSize(long byteSize);
+    }
+
+    public static double getObjectSize(Object o, SizeEnum sizeEnum) {
+        long byteSize = 0;
+        if (o instanceof Collection<?>) {
+            byteSize = RamUsageEstimator.sizeOfAll(o);
+        } else {
+            byteSize = RamUsageEstimator.sizeOf(o);
+        }
+        return sizeEnum.getFromByteSize(byteSize);
+    }
+}

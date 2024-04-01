@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Test {
+
+    public static void main(String[] args) {
+        List<List<String>> listData = new ArrayList<>();
+        listData.add(Arrays.asList("优秀", "很好"));
+        listData.add(Arrays.asList("6个月", "1年", "1年以上"));
+        listData.add(Arrays.asList("是", "否"));
+
+        List<List<String>> list2 = getDescartes(listData);
+        System.out.println(list2);
+        System.out.println(list2.size());
+    }
+
+    private static <T> List<List<T>> getDescartes(List<List<T>> list) {
+        List<List<T>> returnList = new ArrayList<>();
+        descartesRecursive(list, 0, returnList, new ArrayList<>());
+        return returnList;
+    }
+
+    private static <T> void descartesRecursive(List<List<T>> originalList, int position, List<List<T>> returnList, List<T> cacheList) {
+        List<T> currentList = originalList.get(position); // 获取当前需要处理的子列表
+        for (int i = 0; i < currentList.size(); i++) {
+            List<T> childCacheList = new ArrayList<>(cacheList);
+            childCacheList.add(currentList.get(i));
+
+            // 判断是否已经处理到原始列表的最后一个子列表，如果是，则将当前组合添加到结果列表中
+            if (childCacheList.size() == originalList.size()) {
+                returnList.add(childCacheList);
+            } else {
+                // 否则继续对下一个子列表进行同样的操作
+                descartesRecursive(originalList, position + 1, returnList, childCacheList);
+            }
+        }
+    }
+
+}

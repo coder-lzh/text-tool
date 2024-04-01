@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>json数据格式化</title>
+</head>
+
+<body>
+<textarea id="jsonTextarea" readonly></textarea>
+<pre id="jsonPre"></pre>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+    /**
+     * 时间戳 转 字符串
+     */
+    function timestamp2Str(timestamp) {
+        //date为时间戳
+        let date = new Date(timestamp);
+        let Y = date.getFullYear() + '-';
+        let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        let D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+        let h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        let m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        let s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+        return Y + M + D +" "+h + m + s;
+    }
+
+    /**
+     * 字符串 转 date  各种字符串姿势都满足你
+     * 支持：
+     *      getDate("2012-05-09")
+     *      getDate("2012-05-09 11:11:11")
+     *      getDate("2012/05/09")
+     *      getDate("2012/05/09 11:11:11")
+     * @param strDate
+     * @returns {any}
+     */
+    function getDate(strDate) {
+        let date = eval('new Date(' + strDate.replace(/\d+(?=-[^-]+$)/,
+            function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) + ')');
+        return date;
+    }
+
+    /**
+     * date 转 字符串 yyyy-MM-dd
+     * @returns {string}
+     */
+    function dateToString(date) {
+        var year = date.getFullYear();
+        var month =(date.getMonth() + 1).toString();
+        var day = (date.getDate()).toString();
+        if (month.length == 1) {
+            month = "0" + month;
+        }
+        if (day.length == 1) {
+            day = "0" + day;
+        }
+        var dateTime = year + "-" + month + "-" + day;
+        return dateTime;
+    }
+
+    /**
+     * date 转 字符串 yyyy-MM-dd HH:mm:ss
+     * @param date
+     * @returns {string}
+     */
+    function dateTimeToString(date) {
+        var y = date.getFullYear();
+        var M = date.getMonth() + 1;
+        var d = date.getDate();
+        var H = date.getHours();
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+        return y + '-' + (M < 10 ? ('0' + M) : M) + '-' + (d < 10 ? ('0' + d) : d) + " " + (H < 10 ? ('0' + H) : H) + ":" + (m < 10 ? ('0' + m) : m) + ":" + (s < 10 ? ('0' + s) : s);
+    }
+
+    /**
+     * date 转  字符串  支持各种形式！！！！  强烈推荐
+     * 比如：
+     *      dateTimeToStringS(new Date(),'yyyy-MM-dd')
+     *      dateTimeToStringS(new Date(),'yyyy')
+     *      dateTimeToStringS(new Date(),'yyyy/MM/dd')
+     *      dateTimeToStringS(new Date(),'yyyy-MM-dd HH:mm:ss')
+     *      dateTimeToStringS(new Date(),'yyyy-MM-dd HH:mm:ss.S')
+     * @param date
+     * @param format
+     * @returns {*}
+     */
+    function dateTimeToStringS(date, format) {
+        if (date) {
+            var o = {
+                "M+": date.getMonth() + 1, //月份
+                "d+": date.getDate(), //日
+                "h+": date.getHours() % 12 == 0 ? 12 : date.getHours() % 12, //小时
+                "H+": date.getHours(), //小时
+                "m+": date.getMinutes(), //分
+                "s+": date.getSeconds(), //秒
+                "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+                "S": date.getMilliseconds() //毫秒
+            };
+            var week = {
+                "0": "\u65e5",
+                "1": "\u4e00",
+                "2": "\u4e8c",
+                "3": "\u4e09",
+                "4": "\u56db",
+                "5": "\u4e94",
+                "6": "\u516d"
+            };
+            if (/(y+)/.test(format)) {
+                format = format.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+            }
+            if (/(E+)/.test(format)) {
+                format = format.replace(RegExp.$1, ((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "\u661f\u671f" : "\u5468") : "") + week[date.getDay() + ""]);
+            }
+            for (var k in o) {
+                if (new RegExp("(" + k + ")").test(format)) {
+                    format = format.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                }
+            }
+            return format;
+        }
+    }
+</script>
+
+</html>

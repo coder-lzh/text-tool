@@ -1,0 +1,26 @@
+/**
+ * 根据order对User排序
+ */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class User{
+    private String name;
+    private Integer order;
+
+    public static void main(String[] args) {
+        User user1 = new User("a",1);
+        User user2 = new User("b",2);
+        List<User> list = new ArrayList<User>();
+        list.add(user2);
+        list.add(user1);
+        Collections.sort(list,new Comparator<User>(){
+            public int compare(User arg0, User arg1) {
+                return arg0.getOrder().compareTo(arg1.getOrder());
+            }
+        });
+        for(User u : list){
+            System.out.println(u.getName());
+        }
+    }
+}

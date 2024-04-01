@@ -1,0 +1,10 @@
+/**
+* 公众号：干货食堂
+* 作者：敲代码的卡卡罗特
+*/
+@org.junit.Test
+public void test1(){
+	 BigDecimal commissionSum = null;
+     commissionSum = Optional.ofNullable(commissionSum).orElse(BigDecimal.ZERO);
+     System.out.println(commissionSum);
+}

@@ -1,0 +1,11 @@
+1、重启后生效
+chkconfig iptables on    #开启
+
+chkconfig iptables off    #关闭
+
+
+
+2、即时生效，重启后失效 关闭：
+service iptables start    #开启
+
+service iptables stop    #关闭

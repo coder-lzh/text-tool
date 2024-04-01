@@ -1,0 +1,38 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test2 {
+    /**
+     * 根据map的val排序; hashMap 也是可以按照此思路来实现的
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        Map<String, String> map = new TreeMap<String, String>();
+        map.put("d", "ddddd");
+        map.put("b", "bbbbb");
+        map.put("a", "aaaaa");
+        map.put("c", "ccccc");
+
+        //这里将map.entrySet()转换成list
+        List<Map.Entry<String, String>> list = new ArrayList<Map.Entry<String, String>>(map.entrySet());
+        //然后通过比较器来实现排序
+        Collections.sort(list, new Comparator<Map.Entry<String, String>>() {
+            //升序排序
+            @Override
+            public int compare(Map.Entry<String, String> o1, Map.Entry<String, String> o2) {
+                return o1.getValue().compareTo(o2.getValue());
+            }
+        });
+        for (Map.Entry<String, String> mapping : list) {
+            System.out.println(mapping.getKey() + ":" + mapping.getValue());
+        }
+    }
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            display: flex;
+            align-items: center; /*定义div1的元素垂直居中*/
+            justify-content: center; /*定义div1的里的元素水平居中*/
+        }
+        div.wai{
+            position: relative;
+            width: 400px;
+            height: 130px;
+            overflow: hidden;
+        }
+        div.left {
+            width: 300px;
+            height: 130px;
+            background-color: green;
+        }
+        div.right {
+            position: absolute;
+            top: 0px;
+            right: -100px;
+            width: 300px;
+            height: 130px;
+            background-color: red;
+            transform: skewX(-20deg);
+        }
+    </style>
+</head>
+
+<body>
+<div class="wai">
+    <div class="left">
+    </div>
+    <div class="right">
+    </div>
+</div>
+</body>
+
+</html>

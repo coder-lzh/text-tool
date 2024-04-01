@@ -1,0 +1,5 @@
+-- 查看git信息 这个就是最全的
+git config --list
+
+-- 这个只能看用户名和邮箱
+git config --global -l

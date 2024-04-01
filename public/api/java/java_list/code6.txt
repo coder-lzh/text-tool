@@ -1,0 +1,27 @@
+import org.apache.commons.collections4.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+/**
+ * 公众号：干货食堂
+ *   <dependency>
+ *         <groupId>org.apache.commons</groupId>
+ *         <artifactId>commons-collections4</artifactId>
+ *         <version>4.3</version>
+ *     </dependency>
+ */
+public class Test {
+
+    public static void main(String[] args) {
+        Collection<String> c = new ArrayList<>();
+        //deprecated
+        Collection<String> s = CollectionUtils.unmodifiableCollection(c);
+        c.add("a");
+        c.add("b");
+        c.add("c");
+        //Exception in thread "main" java.lang.UnsupportedOperationException
+        //s.add("have a error");
+        System.out.println(s);
+    }
+}

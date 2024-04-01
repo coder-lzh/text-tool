@@ -1,0 +1,25 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        /**
+         * 字符串  转  LocalDate
+         */
+        String JE_date = "2023-12-21";
+        LocalDate local_date = LocalDate.parse(JE_date);
+        System.out.println(local_date);
+
+        /**
+         * LocalDate  转  字符串
+         */
+        LocalDate date = LocalDate.now(); //获取当前时间
+        DateTimeFormatter dtf= DateTimeFormatter.ofPattern("yyyy-MM-dd"); //定义时间格式
+        String dateStr = date.format(dtf); //转换成String类型
+        System.out.println(dateStr);
+    }
+}

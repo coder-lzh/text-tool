@@ -1,0 +1,4 @@
+// 生成一个字符串流
+Stream stream = Stream.of("aaa”, "bbb", "ccc");
+//生成空流
+Stream.empty()

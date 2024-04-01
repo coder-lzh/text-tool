@@ -1,0 +1,22 @@
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    public static void main(String[] args) {
+        try {
+            String urlStr = URLEncoder.encode("活着", "UTF-8");//GBK
+            System.out.println(urlStr);
+            System.out.println(URLDecoder.decode(urlStr,"UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        };
+    }
+}
+//结果
+%E6%B4%BB%E7%9D%80
+活着

@@ -1,0 +1,28 @@
+import com.google.common.io.ByteSource;
+import com.google.common.io.ByteStreams;
+
+import java.io.InputStream;
+import java.util.Arrays;
+
+/**
+ * 公众号：干货食堂
+ * <dependency>
+ *     <groupId>com.google.guava</groupId>
+ *     <artifactId>guava</artifactId>
+ *     <version>20.0</version>
+ * </dependency>
+ */
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+
+        // 字节 转 IO流
+        byte[] bytes = "公众号：干货食堂".getBytes();
+        InputStream inputStream = ByteSource.wrap(bytes).openStream();
+        System.out.println(inputStream);
+
+        // IO流 转 字节
+        byte[] bytes1 = ByteStreams.toByteArray(inputStream);
+        System.out.println(Arrays.toString(bytes1));
+    }
+}

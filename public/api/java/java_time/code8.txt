@@ -1,0 +1,25 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        /**
+         * 字符串  转  Date
+         */
+        String time = "2020-02-02 02:02:02";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date newTime = format.parse(time);
+        System.out.println("转换以后的时间：："+newTime);//Sun Feb 02 02:02:02 CST 2020
+
+        /**
+         * Date  转  字符串
+         */
+        Date date = new Date();
+        String nowTime = format.format(date);
+        System.out.println("当前的时间：："+nowTime);//2023-03-28 22:16:42
+    }
+}

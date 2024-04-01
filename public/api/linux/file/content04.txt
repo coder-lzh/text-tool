@@ -1,0 +1,22 @@
+-- 查看a.log文件内容，默认显示最后10行数据
+tail a.log
+
+-- 查看a.log文件的最后5行内容
+tail -n 5 a.log
+
+-- 查看a.log文件的最后5行内容
+tail -n -5 a.log
+
+-- 查看a.log文件的第5行到最后的内容
+tail -n +5 a.log
+
+#####################################################
+
+-- 默认监控最后10行
+tail -f /path/to/file
+
+-- 指定监控行数
+tail -100f /path/to/file
+
+-- 结合grep搜索
+tail -100f /path/to/file  | grep hello

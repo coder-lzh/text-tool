@@ -1,0 +1,14 @@
+//index.wxml
+<view wx:for="{{sheets}}" wx:key="index" data-dang="{{item.dang}}" bindtap="clickSheetItem" class="index-item {{item.isFill ? 'fill' : ''}}">
+    {{item.dang}}
+</view>
+
+
+//index.js
+data:{
+	sheets:[
+		{ dang:1, isFill:false },
+		{ dang:1, isFill:false },
+		{ dang:1, isFill:false },
+	],
+}

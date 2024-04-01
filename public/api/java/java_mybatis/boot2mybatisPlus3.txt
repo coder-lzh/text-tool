@@ -1,0 +1,29 @@
+package com.ganhuoshitang.kong.share.mapper;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ganhuoshitang.kong.share.dto.ArticlePageDTO;
+import com.ganhuoshitang.kong.share.entity.Article;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+
+/**
+ * <p>
+ * 文章表 Mapper 接口
+ * </p>
+ *
+ * @author liuzhw
+ * @since 2022-04-16
+ */
+@Repository
+public interface ArticleMapper extends BaseMapper<Article> {
+
+     /**
+     * 分页查询
+     * @param page  分页对象
+     * @param dto   查询参数
+     * @return
+     */
+     IPage<Article> selectPageByDto(@Param("page") Page<Article> page, @Param("dto")ArticlePageDTO dto);
+}

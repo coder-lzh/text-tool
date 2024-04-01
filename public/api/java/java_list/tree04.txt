@@ -1,0 +1,55 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+/**
+ * 公众号：干货食堂
+ */
+public class TreeUtil {
+    public static void main(String[] args) {
+        List<Menu> list = new ArrayList<Menu>() {{
+            add(new Menu(0, 1, "菜单1"));
+            add(new Menu(0, 2, "菜单2"));
+            add(new Menu(1, 3, "菜单1-1"));
+            add(new Menu(3, 4, "菜单1-1-1"));
+            add(new Menu(2, 5, "菜单2-1"));
+            add(new Menu(4, 6, "菜单1-1-1-1"));
+            add(new Menu(4, 7, "菜单1-1-1-2"));
+            add(new Menu(1, 8, "菜单1-2"));
+            add(new Menu(8, 9, "菜单1-2-1"));
+        }};
+        List<Menu> target = new ArrayList<>();
+        getTreeChainList(list,target,9);
+        System.out.println(target);
+    }
+
+    public static void getTreeChainList(List<Menu> list,List<Menu> target,Integer id){
+        Map<Integer, Menu> menuMap = list.stream().collect(Collectors.toMap(Menu::getId, a -> a,(k1, k2)->k2));
+        Menu currentMenu = menuMap.get(id);
+
+        if (currentMenu!=null){
+            target.add(0,currentMenu);
+
+            Integer pid = currentMenu.getPid();
+            Menu pMenu = menuMap.get(pid);
+            if (pMenu!=null){
+                target.add(0,pMenu);
+
+                list = list.stream().filter(menu -> menu.getId()!=id && menu.getId()!=pid).collect(Collectors.toList());
+                getTreeChainList(list,target,pMenu.getPid());
+            }
+        }
+    }
+}
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class Menu{
+    private Integer pid;
+    private Integer id;
+    private String name;
+}

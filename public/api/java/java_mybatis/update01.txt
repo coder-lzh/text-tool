@@ -1,0 +1,6 @@
+<update id="updateById">
+    update sys_user
+    set user_name = #{userName},
+        user_password = #{userPassword}
+    where id = #{id}
+</update>

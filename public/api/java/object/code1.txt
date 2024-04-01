@@ -1,0 +1,34 @@
+import com.carrotsearch.sizeof.RamUsageEstimator;
+
+import java.util.ArrayList;
+
+/**
+ * 公众号：干货食堂
+ * <dependency>
+ *   <groupId>com.carrotsearch</groupId>
+ *   <artifactId>java-sizeof</artifactId>
+ *   <version>0.0.5</version>
+ * </dependency>
+ */
+public class Test {
+
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            list.add(i);
+        }
+        //计算指定对象及其引用树上的所有对象的综合大小，返回可读的结果，如：2KB
+        System.out.println("humanSizeOf:" + RamUsageEstimator.humanSizeOf(list));
+        //计算指定对象本身在堆空间的大小，单位字节
+        System.out.println("shallowSizeOf:" + RamUsageEstimator.shallowSizeOf(list));
+        //计算指定对象及其引用树上的所有对象的综合大小，单位字节
+        System.out.println("sizeOf:" + RamUsageEstimator.sizeOf(list));
+
+
+//        humanSizeOf:20.5 KB
+//        shallowSizeOf:24
+//        sizeOf:20976
+    }
+
+
+}

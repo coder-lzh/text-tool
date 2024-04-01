@@ -1,0 +1,7 @@
+1、不修改防火墙文件，在线添加的方法
+防火墙开放2375端口号
+[root@huangsz ~]# firewall-cmd --zone=public --add-port=2375/tcp --permanent
+
+重启防火墙
+
+[root@huangsz ~]# firewall-cmd --reload

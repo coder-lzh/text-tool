@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 100vh;
+            display: flex;
+            align-items: center; /*定义div1的元素垂直居中*/
+            justify-content: center; /*定义div1的里的元素水平居中*/
+        }
+        div {
+            display: flex;
+        }
+
+        .tag-class{
+            padding: 3px 10px;
+            margin: 5px 10px;
+            height: 18px;
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center; /*定义div1的元素垂直居中*/
+            justify-content: center; /*定义div1的里的元素水平居中*/
+
+            /*文字样式*/
+            color: #fff;
+            font-size: 14px;
+
+            background: #b1b0b0;
+        }
+        .bg{
+            background: #ff6060;
+        }
+    </style>
+
+    <script>
+        function chooseType(e) {
+            //父节点
+            var parentElement = e.parentNode;
+            //父节点所有子节点
+            var childNodes = parentElement.childNodes;
+            console.log(childNodes)
+            //移出class
+            for (let i = 0; i < childNodes.length; i++) {
+                // 元素element ==》1
+                // 属性attr ==》2
+                // 文本text ==》3
+                // 注释comments ==》8
+                // 文档document ==》 9
+                if(childNodes[i].nodeType==1){
+                    childNodes[i].classList.remove("bg");
+                }
+            }
+            //给目标元素新增class
+            e.classList.add("bg");
+        }
+    </script>
+</head>
+
+<body>
+<div class="div">
+    <div class="tag-class" onclick="chooseType(this)">红色</div>
+    <div class="tag-class" onclick="chooseType(this)">蓝色</div>
+    <div class="tag-class" onclick="chooseType(this)">绿色</div>
+</div>
+</body>
+
+</html>

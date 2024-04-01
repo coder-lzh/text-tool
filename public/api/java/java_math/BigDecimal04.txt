@@ -1,0 +1,14 @@
+public class Test2 {
+
+    /**
+     * 参数一：保留的小数位数
+     * 参数二：取舍规则是必须的
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        BigDecimal totalAmount = new BigDecimal("19.09");
+        totalAmount = totalAmount.setScale(1,RoundingMode.HALF_UP);
+        System.out.println(totalAmount);
+    }
+}

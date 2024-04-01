@@ -1,0 +1,18 @@
+import com.google.common.collect.Lists;
+
+import java.util.List;
+
+/**
+ *      <dependency>
+ *         <groupId>com.google.guava</groupId>
+ *         <artifactId>guava</artifactId>
+ *         <version>21.0</version>
+ *     </dependency>
+ */
+public class Test3 {
+    public static void main(String[] args) {
+        List<String> strings=Lists.newArrayList("a","b","c","d","e","f","g","h","i");
+        List<List<String>> lists= Lists.partition(strings,4);
+        System.out.println(lists);
+    }
+}

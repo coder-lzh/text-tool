@@ -1,0 +1,16 @@
+import numpy as np
+
+a = np.array([0,2,3])
+print(a.dtype)
+print(a)
+
+# pad_arr.astype(str) 转字符串
+a = a.astype(bool)
+print(a.dtype)
+print(a)
+
+
+# int32
+# [0 2 3]
+# bool
+# [False  True  True]

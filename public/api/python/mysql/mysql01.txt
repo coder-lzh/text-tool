@@ -1,0 +1,31 @@
+import pymysql
+
+host = 'localhost'  # MySQL主机名
+user = 'root'  # MySQL用户名
+password = 'root'  # MySQL密码
+database = 'test'  # 数据库名称
+
+# 与MySQL建立连接
+conn = pymysql.connect(host=host, user=user, password=password, database=database)
+
+# 创建表
+create_table_query = """
+        CREATE TABLE IF NOT EXISTS `stock_history`(
+            `id` INT(4) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+            `stock_code` VARCHAR(50) COMMENT'股票代码' ,
+            `date_str` VARCHAR(30)  COMMENT'日期',
+            `kaipan_price` decimal(10, 2) COMMENT'开盘价',
+            `shoupan_price` decimal(10, 2) COMMENT'收盘价',
+            `max_price` decimal(10, 2) COMMENT'最高价',
+            `min_price` decimal(10, 2)  COMMENT '最低价',
+            `chengjiao_quantity` decimal(10, 2) COMMENT '成交量',
+            `chengjiao_amount` decimal(10, 2) COMMENT '成交额',
+
+            `zhenfu` decimal(10, 2) COMMENT '振幅',
+            `zhang_die_fu` decimal(10, 2) COMMENT '涨跌幅',
+            `zhang_die_e` decimal(10, 2) COMMENT '涨跌额',
+            `huanshoulv` decimal(10, 2) COMMENT '换手率',
+            PRIMARY KEY (`id`)
+            )ENGINE=INNODB DEFAULT CHARSET = utf8 COMMENT = '股票历史数据表';
+"""
+conn.cursor().execute(create_table_query)

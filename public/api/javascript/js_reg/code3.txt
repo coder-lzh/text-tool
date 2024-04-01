@@ -1,0 +1,8 @@
+//原始字符串
+let string = "欢迎访问!\r\nhttps://tool.share888.top/.com    最好用的工具网站";
+
+//替换所有的换行符 && 替换所有的空格
+string = string.replace(/(\r\n)|(\n)|(\s)/g,'');
+
+//输出转换后的字符串
+console.log(string);

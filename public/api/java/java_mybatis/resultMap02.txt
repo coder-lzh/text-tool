@@ -1,0 +1,25 @@
+<resultMap id="BaseResultMap" type="com.ganhuoshitang.kong.api.vo.OrderAPIVO">
+    <id column="id" property="id"/>
+    <result column="price" property="price"/>
+    <result column="createTime" property="createTime"/>
+
+    <!-- 一对一 -->
+    <association property="addressVO" javaType="com.ganhuoshitang.kong.api.vo.AddressAPIVO">
+        <result column="contactsName" property="contactsName"/>
+        <result column="phoneNumber" property="phoneNumber"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="county" property="county"/>
+        <result column="street" property="street"/>
+    </association>
+
+    <!-- 一对多 -->
+    <collection property="orderDetailAPIVOList" ofType="com.ganhuoshitang.kong.api.vo.OrderDetailAPIVO">
+        <result column="detailId" property="detailId"/>
+        <result column="customId" property="customId"/>
+        <result column="customName" property="customName"/>
+        <result column="cutPrice" property="cutPrice"/>
+        <result column="createTime2" property="createTime"/>
+    </collection>
+
+</resultMap>

@@ -1,0 +1,51 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    public static void main(String[] args) {
+        List<User> userList = init();
+        //获取用户名称列表
+        List<String> nameList = userList.stream().map(User::getName).collect(Collectors.toList());
+        //或者：List<String> nameList = userList.stream().map(user -> user.getName()).collect(Collectors.toList());
+        //打印用户信息
+        System.out.println(nameList);
+    }
+
+    /**
+     * 初始化数据
+     */
+    public static List<User> init() {
+        List<User> userList = new ArrayList<User>();
+        userList.add(new User(1, "干货食堂_01", "男", 32, "研发部", BigDecimal.valueOf(1600)));
+        userList.add(new User(2, "干货食堂_02", "男", 30, "财务部", BigDecimal.valueOf(1800)));
+        userList.add(new User(3, "干货食堂_03", "女", 20, "人事部", BigDecimal.valueOf(1700)));
+        userList.add(new User(4, "干货食堂_04", "男", 38, "研发部", BigDecimal.valueOf(1500)));
+        userList.add(new User(4, "干货食堂_04", "男", 38, "研发部02", BigDecimal.valueOf(1500)));
+        userList.add(new User(5, "干货食堂_05", "女", 25, "财务部", BigDecimal.valueOf(1200)));
+        return userList;
+    }
+
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class User {
+        int id;
+        String name;
+        String sex;
+        int age;
+        String Department;
+        BigDecimal Salary;
+
+    }
+}

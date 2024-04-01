@@ -1,0 +1,20 @@
+/**
+* 公众号：干货食堂
+* 作者：敲代码的卡卡罗特
+*/
+@org.junit.Test
+public void test1(){
+	//double还有int和long类型的计算
+	list.stream().mapToDouble(User::getHeight).sum()//和
+	list.stream().mapToDouble(User::getHeight).max()//最大
+	list.stream().mapToDouble(User::getHeight).min()//最小
+	list.stream().mapToDouble(User::getHeight).average()//平均值
+
+	//bigdecimal需要用到reduce求和
+	BigDecimal add = list.stream().map(User::getHeight).reduce(BigDecimal.ZERO, BigDecimal::add);
+    System.out.println("身高 总和：" + df.format(add));
+    Optional<User> max = list.stream().max((u1, u2) -> u1.getHeight().compareTo(u2.getHeight()));
+    System.out.println("身高 最大：" + df.format(max.get().getHeight()));
+    Optional<User> min = list.stream().min((u1, u2) -> u1.getHeight().compareTo(u2.getHeight()));
+    System.out.println("身高 最小：" + df.format(min.get().getHeight()));
+}

@@ -1,0 +1,9 @@
+/**
+* 公众号：干货食堂
+* 作者：敲代码的卡卡罗特
+*/
+@org.junit.Test
+public void test1(){
+	 User user = null;
+     Optional.ofNullable(user).orElseThrow(()->new Exception("用户不存在"));
+}

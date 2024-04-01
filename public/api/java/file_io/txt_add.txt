@@ -1,0 +1,20 @@
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+
+/**
+ * 公众号：干货食堂
+ * <dependency>
+ *   <groupId>commons-io</groupId>
+ *   <artifactId>commons-io</artifactId>
+ *   <version>2.5</version>
+ * </dependency>
+ */
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        File f = new File("C:\\Users\\65708\\Desktop\\1.txt");
+        // 第二个参数 是否追加内容
+        FileUtils.writeByteArrayToFile(f, new String("HelloWorld").getBytes(), false);
+    }
+}

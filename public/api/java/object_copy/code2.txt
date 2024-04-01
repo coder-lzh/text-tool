@@ -1,0 +1,61 @@
+import org.apache.commons.beanutils.BeanUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+/**
+ * 公众号：干货食堂
+ * <!-- Apache Commons BeanUtils -->
+ * <dependency>
+ *     <groupId>commons-beanutils</groupId>
+ *     <artifactId>commons-beanutils</artifactId>
+ *     <version>1.9.4</version>
+ * </dependency>
+ */
+public class BeanCopyUtils {
+      /** 1、单个对象*/
+       public static <V> V copyBean(Object source, Class<V> clazz) {
+           /** 创建目标对象 实现属性拷贝*/
+           V result = null;
+           try {
+               result = clazz.newInstance();
+               /** 拷贝*/
+               BeanUtils.copyProperties(result, source);
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           return result;
+       }
+       public static <V> V copyBean(Object source, Class<V> clazz, String... excludeFields) {
+           /** 创建目标对象 实现属性拷贝*/
+           V result = null;
+           try {
+               result = clazz.newInstance();
+               /** 拷贝*/
+               BeanUtils.copyProperties(result, source);
+
+               for (String fieldName : excludeFields) {
+                   Field field = ReflectionUtils.findField(clazz, fieldName);
+                   if (field != null) {
+                       field.setAccessible(true);
+                       ReflectionUtils.setField(field, result, null);
+                   }
+               }
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+           return result;
+       }
+
+       /** 2、集合*/
+       public static <T> List<T> copyList(List<?> sourceList, Class<T> targetClass) {
+           return sourceList.stream()
+                   .map(o -> copyBean(o, targetClass))
+                   .collect(Collectors.toList());
+       }
+
+       public static <T> List<T> copyList(List<?> sourceList, Class<T> targetClass, String... excludeFields) {
+           return sourceList.stream()
+                   .map(o -> copyBean(o, targetClass,excludeFields))
+                   .collect(Collectors.toList());
+       }
+}

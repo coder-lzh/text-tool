@@ -1,0 +1,6 @@
+-- 利用cat 和 grep结合，-n 是显示行号
+
+cat -n sys-info.log | grep hello
+
+-- --color 是让显示颜色
+cat -n sys-info.log | grep --color hello

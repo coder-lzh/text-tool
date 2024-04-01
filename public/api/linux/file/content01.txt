@@ -1,0 +1,15 @@
+-- 查看sys-info.log文件中是否包含hello
+grep 'hello' sys-info.log
+
+-- 忽略匹配模式的大小写，可以使用-i选项
+grep -i "pattern" /path/to/file
+
+
+-- 递归查询  加上-r参数
+grep -r "pattern" /path/to/directory
+
+-- 显示命中关键词的上下文  -C 2 意思是 显示上下两行
+grep -C 2 "pattern" /path/to/file
+grep -A <num> "pattern" /path/to/file  # 匹配行后的上下文
+grep -B <num> "pattern" /path/to/file  # 匹配行前的上下文
+

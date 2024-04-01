@@ -1,0 +1,14 @@
+git init    //初始化一个本地仓库。
+
+git add .  //添加文件
+
+git commit -m '提交内容'  //提交到本地仓库
+
+git status  //查看状态  变红是说明文件还没有add   变绿说明文件已经add 但是还没有commit   提交完之后就会显示没有文件可以提交了
+
+git pull //拉取代码
+
+git push //推送代码
+
+// 其中develop就是分支的名称  克隆指定分支的仓库
+git clone -b develop  git@github.com:coder-lzh/reference.git

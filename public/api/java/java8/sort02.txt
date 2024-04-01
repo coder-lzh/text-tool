@@ -1,0 +1,15 @@
+/**
+* 公众号：干货食堂
+* 作者：敲代码的卡卡罗特
+*/
+@org.junit.Test
+public void test1(){
+	//单字段排序 按照 money字段降序
+	List<Apple> collect = appleList.stream().sorted(Comparator.comparing(Apple::getMoney,Comparator.reverseOrder())).collect(Collectors.toList());
+	//多字段排序 按照 money字段降序,相同的money 会再根据num降序
+	List<Apple> collect = appleList.stream().sorted(Comparator.comparing(Apple::getMoney,Comparator.reverseOrder()).thenComparing(Apple::getNum,Comparator.reverseOrder())).collect(Collectors.toList());
+	//排序时包括null
+	//Comparator.nullsFirst 排序字段为null的对象放在排序后的List最后面
+	//Comparator.nullsLast  排序字段为null的对象放在排序后的List最前面
+	List<User> nList = list.stream().sorted(Comparator.comparing(User::getName, Comparator.nullsFirst(String::compareTo))).collect(Collectors.toList());
+}

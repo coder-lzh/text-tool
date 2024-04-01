@@ -1,0 +1,21 @@
+from sqlalchemy import create_engine
+
+import pandas as pd
+
+# 向数据库插入2条数据
+# 向数据库插入2条数据
+# 向数据库插入2条数据
+# 向数据库插入2条数据
+
+# 与MySQL建立连接
+# 创建数据库连接
+engine = create_engine('mysql+pymysql://root:root@localhost:3306/test')
+
+# 创建示例 DataFrame
+data = {'data_str': ['2022-01-09', '2022-01-10'], 'stock_code': ['000001', '000002'], 'kaipan_price': [12.98, 23]}
+
+df = pd.DataFrame(data)
+
+# 将 DataFrame 保存到数据库
+# if_exists='append'
+df.to_sql(name='stock_history', con=engine, if_exists='replace', index=False)

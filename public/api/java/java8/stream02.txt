@@ -1,0 +1,4 @@
+// 数值流转换为流
+// 很简单，就一个 boxed
+
+Stream stream = intStream.boxed();

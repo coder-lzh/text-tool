@@ -1,0 +1,66 @@
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    /**
+     * 使用flatMap()将流中的每一个元素连接成为一个流
+     * @param args
+     */
+    public static void main(String[] args) {
+        List<User> userList = init();
+        //最高薪资
+        BigDecimal maxSalary = userList.stream().map(User::getSalary).max((x1, x2) -> x1.compareTo(x2)).get();
+
+        //最低薪资
+        BigDecimal minSalary = userList.stream().map(User::getSalary).min((x1, x2) -> x1.compareTo(x2)).get();
+
+        //薪资总和
+        BigDecimal sumSalary = userList.stream().map(User::getSalary).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        //平均薪资
+        BigDecimal avgSalary = userList.stream().map(User::getSalary).reduce(BigDecimal.ZERO, BigDecimal::add).divide(BigDecimal.valueOf(userList.size()), 2, BigDecimal.ROUND_HALF_UP);
+
+        //打印统计结果
+        System.out.println("最高薪资：" + maxSalary + "元");
+        System.out.println("最低薪资：" + minSalary + "元");
+        System.out.println("薪资总和：" + sumSalary + "元");
+        System.out.println("平均薪资：" + avgSalary + "元");
+    }
+
+    /**
+     * 初始化数据
+     */
+    public static List<User> init() {
+        List<User> userList = new ArrayList<User>();
+        userList.add(new User(1, "干货食堂_01", "男", 32, "研发部", BigDecimal.valueOf(1600)));
+        userList.add(new User(2, "干货食堂_02", "男", 30, "财务部", BigDecimal.valueOf(1800)));
+        userList.add(new User(3, "干货食堂_03", "女", 20, "人事部", BigDecimal.valueOf(1700)));
+        userList.add(new User(4, "干货食堂_04", "男", 38, "研发部", BigDecimal.valueOf(1500)));
+        userList.add(new User(4, "干货食堂_04", "男", 58, "研发部02", BigDecimal.valueOf(1500)));
+        userList.add(new User(5, "干货食堂_05", "女", 25, "财务部", BigDecimal.valueOf(1200)));
+        return userList;
+    }
+
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class User {
+        int id;
+        String name;
+        String sex;
+        int age;
+        String Department;
+        BigDecimal Salary;
+
+    }
+}

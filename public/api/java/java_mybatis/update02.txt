@@ -1,0 +1,10 @@
+<!--通过主键修改实体属性不为null的列-->
+<update id="update" parameterType="com.ganhuoshitang.entity.Items">
+    update items
+    <set>
+        <if test="itemName != null and itemName != ''">
+            item_name = #{itemName},
+        </if>
+    </set>
+    where id = #{id}
+</update>

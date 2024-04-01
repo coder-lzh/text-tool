@@ -1,0 +1,86 @@
+package com.ganhuoshitang.kong;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import org.apache.commons.beanutils.BeanMap;
+import org.apache.commons.beanutils.BeanUtils;
+
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 对象 - Map  互转
+ */
+public class ObjectConverterUtil {
+
+    /**
+     * 对象转map
+     * @param obj
+     * @return
+     */
+    public static Map<String, Object> objectToMap(Object obj) {
+        BeanMap beanMap = new BeanMap(obj);
+        JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(obj));
+        return jsonObject;
+    }
+
+    /**
+     * map 转 对象
+     * @param map
+     * @param clazz
+     * @param <T>
+     * @return
+     */
+    public static <T> T mapToObject(Map<String,Object> map,Class<T> clazz) {
+        T jsonObject = JSON.parseObject(JSONObject.toJSONString(map), clazz);
+        return jsonObject;
+    }
+
+
+    public static void main(String[] args) {
+        User user = new User(1,"测试");
+        Map<String, Object> stringObjectMap = objectToMap(user);
+        System.out.println(stringObjectMap);
+
+        User user2 = mapToObject(stringObjectMap,User.class);
+        System.out.println(user2);
+
+    }
+
+
+    public static class User {
+        int id;
+        String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public User(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "User{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    '}';
+        }
+    }
+}

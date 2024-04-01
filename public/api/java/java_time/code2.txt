@@ -1,0 +1,29 @@
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
+
+/**
+ * 公众号：干货食堂
+ */
+public class Test {
+
+    public static void main(String[] args) throws Exception {
+        /**
+         * Date 转 LocalDateTime
+         */
+        // 第一种方法
+        Date nowDate = new Date();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(nowDate.toInstant(), ZoneId.systemDefault());
+        // 第二种方法
+        Date startDate=new Date();
+        LocalDateTime localDateTime2 = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+        /**
+         * LocalDateTime 转 Date
+         */
+        ZonedDateTime zdt = LocalDateTime.now().atZone( ZoneId.systemDefault());
+        Date date = Date.from(zdt.toInstant());
+
+    }
+}

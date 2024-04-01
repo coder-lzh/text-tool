@@ -1,0 +1,5 @@
+-- 查看是否存在ssh  打开git 命令行
+ls -al ~/.ssh
+
+-- 生成ssh  一路回车 OK
+$ ssh-keygen -t rsa -C "your_email@example.com"

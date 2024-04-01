@@ -1,0 +1,35 @@
+@FunctionalInterface
+public interface UnitFun {
+
+    void exec();
+
+    /**
+     * @FunctionalInterface 注解只允许一个抽象方法，但是可以用default来实现多个方法
+     * @param var
+     * @return
+     */
+    default String exec2(String var){
+        return var;
+    }
+}
+
+
+public class TestUnitFun {
+    public static void test(UnitFun fun) {
+        fun.exec();
+    }
+    public static void test2(UnitFun fun) {
+        String ok = fun.exec2("OK");
+        System.out.println(ok);
+    }
+
+    public static void main(String[] args) {
+        TestUnitFun.test(
+                () -> System.out.println("这是一个没有参数，也没有返回的函数。")
+        );
+
+        TestUnitFun.test2(() -> {
+
+        });
+    }
+}

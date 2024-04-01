@@ -1,0 +1,12 @@
+<!--通过实体非空属性删除-->
+<delete id="deleteByEntity" parameterType="com.ganhuoshitang.entity.Items">
+    delete from items
+    <where>
+        <if test="itemName != null">
+            and item_name = #{itemName}
+        </if>
+        <if test="catId != null">
+            and cat_id = #{catId}
+        </if>
+    </where>
+</delete>

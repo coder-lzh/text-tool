@@ -1,0 +1,34 @@
+import org.apache.commons.io.IOUtils;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+/**
+ * 公众号：干货食堂
+ * <dependency>
+ *   <groupId>commons-io</groupId>
+ *   <artifactId>commons-io</artifactId>
+ *   <version>2.5</version>
+ * </dependency>
+ */
+public class StreamConversion {
+    public static void main(String[] args) {
+        try {
+            // 创建输入流和输出流
+            FileInputStream inputStream = new FileInputStream("input.txt");
+            FileOutputStream outputStream = new FileOutputStream("output.txt");
+
+            // 使用Apache Commons IO进行流转化
+            IOUtils.copy(inputStream, outputStream);
+
+            // 关闭流
+            inputStream.close();
+            outputStream.close();
+
+            System.out.println("转化完成！");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
